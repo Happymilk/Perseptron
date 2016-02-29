@@ -1,0 +1,18 @@
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\bin\Debug\Lab4.exe.config
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.csprojResolveAssemblyReference.cache
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.Form1.resources
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.Properties.Resources.resources
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.csproj.GenerateResource.Cache
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\bin\Debug\Lab4.exe
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\bin\Debug\Lab4.pdb
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.exe
+E:\Универ\5 сем\МиАПР\Работы\Lab4\Lab4\obj\Debug\Lab4.pdb
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\bin\Debug\Lab4.exe.config
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.exe
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.pdb
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\bin\Debug\Lab4.exe
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\bin\Debug\Lab4.pdb
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.csprojResolveAssemblyReference.cache
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.Form1.resources
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.Properties.Resources.resources
+D:\Drive\учёба\3 курс\2 сем\МиАПР\0\Lab4\Lab4\obj\Debug\Lab4.csproj.GenerateResource.Cache
