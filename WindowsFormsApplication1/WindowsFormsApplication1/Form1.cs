@@ -1,122 +1,99 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        private MyFunction[] funcs;
+        private Persiptron p;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private Function[] functions;
-
-        Persiptron persiptron;
-
-        private void teachingButton_Click(object sender, EventArgs e)
-        {
-            var classCount = (int) classesCountNnumericUpDown.Value;
-            var vectorsSize = (int) elementsCountNumericUpDown3.Value;
-            var vectorsCount = (int)vectorsCountNumericUpDown.Value;
-
-            dataGridView1.ColumnCount = vectorsSize;
-            dataGridView1.RowCount = 1;
-         
-            persiptron = new Persiptron(classCount, vectorsSize+1);
-            Vector[][] vectors = GetRandomVectors(classCount, vectorsCount, vectorsSize);
-            functions = persiptron.GetSepareteFunctions(vectors);
-            if (persiptron.Warning)
-                MessageBox.Show("Итерационный процесс не сошёлся. Возможны неверные результаты");
-            
-            PrintResult(classCount, vectorsCount, vectorsSize, vectors);
-            getClassButton.Enabled = true;
-        }
-
-        private void PrintResult(int classCount, int vectorsCount, int vectorsSize, Vector[][] vectors)
-        {
-            teachingResultTextBox.Text = "";
-            PrintTeachingResult(classCount, vectorsCount, vectorsSize, vectors);
-            teachingResultTextBox.Text += "\r\n\r\nРАЗДЕЛЯЮЩИЕ ФУНКЦИИ:\r\n";
-            PrintFunctions(classCount, vectorsSize);
-        }
-
-        private void PrintFunctions(int classCount, int vectorsSize)
-        {
-            for (int i = 0; i < classCount; i++)
-            {
-                teachingResultTextBox.Text += "d(" + (i + 1) + ")  = ";
-                for (int j = 0; j < vectorsSize; j++)
-                {
-                    if (j != 0 && functions[i].Elements[j] >= 0)
-                        teachingResultTextBox.Text += "+";
-                    teachingResultTextBox.Text += functions[i].Elements[j] + "*x" + (j + 1);
-                }
-                if (functions[i].Elements[vectorsSize] >= 0)
-                    teachingResultTextBox.Text += "+";
-                teachingResultTextBox.Text += functions[i].Elements[vectorsSize];
-                teachingResultTextBox.Text += "\r\n";
-            }
-        }
-
-        private void PrintTeachingResult(int classCount, int vectorsCount, int vectorsSize,
-            Vector[][] vectors)
-        {
-            for (int i = 0; i < classCount; i++)
-            {
-                teachingResultTextBox.Text += (i + 1) + " КЛАСС:\r\n";
-                for (int j = 0; j < vectorsCount; j++)
-                {
-                    teachingResultTextBox.Text += "(";
-                    for (int k = 0; k < vectorsSize; k++)
-                        teachingResultTextBox.Text += vectors[i][j].Elements[k] + "; ";
-                    teachingResultTextBox.Text += ")\r\n";
-                }
-            }
-        }
-
-        private static Vector[][] GetRandomVectors(int classCount, int vectorsCount, int vectorsSize)
+        private static MyObject[][] RandomObjects(int classCount, int objectsCount, int attributesCount)
         {
             var rnd = new Random();
-            var vectors = new Vector[classCount][];
-            
+            var objects = new MyObject[classCount][];
+
             for (int i = 0; i < classCount; i++)
             {
-                vectors[i] = new Vector[vectorsCount];
-                for (int j = 0; j < vectorsCount; j++)
+                objects[i] = new MyObject[objectsCount];
+                for (int j = 0; j < objectsCount; j++)
                 {
-                    vectors[i][j] = new Vector(vectorsSize+1);
-                    for (int k = 0; k < vectorsSize; k++)
-                        vectors[i][j].Elements[k] = rnd.Next(-10, 10);
-                    vectors[i][j].Elements[vectorsSize] = 1;
+                    objects[i][j] = new MyObject(attributesCount + 1);
+                    for (int k = 0; k < attributesCount; k++)
+                        objects[i][j].Attributes[k] = rnd.Next(-9, 9);
+                    objects[i][j].Attributes[attributesCount] = 1;
+                }
+            }
+            return objects;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var classCount = (int)numericUpDown1.Value;
+            var objectsCount = (int)numericUpDown2.Value;
+            var attributesCount = (int)numericUpDown3.Value;
+
+            dataGridView1.ColumnCount = attributesCount;
+            dataGridView1.RowCount = 1;
+         
+            p = new Persiptron(classCount, attributesCount+1);
+            MyObject[][] objects = RandomObjects(classCount, objectsCount, attributesCount);
+            funcs = p.GetFuncs(objects);
+
+            textBox1.Text = "";
+            textBox2.Text = "";
+
+            for (int i = 0; i < classCount; i++)
+            {
+                textBox1.Text += (i + 1) + ":";
+                for (int j = 0; j < objectsCount; j++)
+                {
+                    textBox1.Text += "\t";
+                    for (int k = 0; k < attributesCount; k++)
+                        if (objects[i][j].Attributes[k] >= 0)
+                            textBox1.Text += " " + objects[i][j].Attributes[k] + " ";
+                        else
+                            textBox1.Text += objects[i][j].Attributes[k] + " ";
+                    textBox1.Text += "\r\n";
                 }
             }
 
-            return vectors;
+            for (int i = 0; i < classCount; i++)
+            {
+                textBox2.Text += "d(" + (i + 1) + ")= ";
+                for (int j = 0; j < attributesCount; j++)
+                {
+                    if (j != 0 && funcs[i].Attributes[j] > 0)
+                        textBox2.Text += "+";
+                    textBox2.Text += funcs[i].Attributes[j] + "*x" + (j + 1) + " ";
+                }
+                if (funcs[i].Attributes[attributesCount] >= 0)
+                    textBox2.Text += "+";
+                textBox2.Text += funcs[i].Attributes[attributesCount];
+                textBox2.Text += "\r\n";
+            }
         }
 
-        private Vector GetElementsFormGridView()
+        private MyObject Input()
         {
-            var matrix = new Vector((int)elementsCountNumericUpDown3.Value+1);
+            var array = new MyObject((int)numericUpDown3.Value+1);
             
-            for (int i = 0; i < (int)elementsCountNumericUpDown3.Value; i++)
-                matrix.Elements[i] = Int32.Parse((dataGridView1[i, 0].Value ?? 0).ToString());
-            matrix.Elements[(int)elementsCountNumericUpDown3.Value] = 1;
+            for (int i = 0; i < (int)numericUpDown3.Value; i++)
+                array.Attributes[i] = Int32.Parse((dataGridView1[i, 0].Value).ToString());
+            array.Attributes[(int)numericUpDown3.Value] = 1;
 
-            return matrix;
+            return array;
         }
 
-        private void getClassButton_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            classTextBox.Text = "Вектор " + (persiptron.GetMaxVectorClass(functions, GetElementsFormGridView()) +
-                1) + " класса";
+            if (p.Max(funcs, Input()) > -1)
+                MessageBox.Show("Вектор " + (p.Max(funcs, Input()) + 1) + " класса");
         }
     }
 }
